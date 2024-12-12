@@ -14,17 +14,25 @@
 //     console.log("Backend running on http://localhost:5000");
 // });
 
-const express = require('express');
-const fs = require('fs');
+// const express = require('express');
+// const fs = require('fs');
+// const path = require('path');
+
+// const app = express();
+// const PORT = process.env.PORT || 5000;
+
+// // Routes
+// const financialRoutes = require('./routes/financialRoutes');
+// app.use('/api/financial', financialRoutes);
+
+// app.listen(PORT, () => {
+//   console.log(`Server running on http://localhost:${PORT}`);
+// });
+
 const path = require('path');
+const fs = require('fs');
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+const filePath = path.join(__dirname, 'data', 'exchange.json');
+const jsonData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
-// Routes
-const financialRoutes = require('./routes/financialRoutes');
-app.use('/api/financial', financialRoutes);
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+console.log(jsonData);

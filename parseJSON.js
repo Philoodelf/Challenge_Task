@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 // Paths to the JSON files
-const exchangePath = path.join(__dirname, 'exchange.json');
-const metadataPath = path.join(__dirname, 'metadata.json');
-const candlePath = path.join(__dirname, 'candle.json');
+const exchangePath = path.join(__dirname, 'backend', 'data', 'exchange.json');
+const metadataPath = path.join(__dirname, 'backend', 'data', 'metadata.json');
+const candlePath = path.join(__dirname, 'backend', 'data', 'candle.json');
+
 
 // Function to parse JSON
 function parseJSON(filePath) {

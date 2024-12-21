@@ -1,18 +1,17 @@
-FROM node:18
+FROM node:20
+
 WORKDIR /app
-COPY package*.json ./
+
+
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install --silent
+RUN npm install react-scripts@5.0.1 -g --silent
+
 RUN npm install
+
 COPY . .
-RUN npm run build
 
-# Use an official Nginx image to serve the React app
-FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
-COPY --from=0 /app/build .
+EXPOSE 3000
 
-# Expose port 80 for the container
-EXPOSE 80
-
-# Start the Nginx server
-CMD ["nginx", "-g", "daemon off;"]
-#CMD ["npm", "start"]
+CMD ["npm", "start"]

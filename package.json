@@ -10,6 +10,17 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "fs": "^0.0.1-security"
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
+    "fs": "^0.0.1-security",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.7",
+    "react-data-table-component": "^7.6.2",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
   }
 }

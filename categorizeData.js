@@ -93,57 +93,125 @@
 // saveDataToFile(categorizedMetadataData, 'categorizedMetadata.json');
 
 
+// const fs = require('fs');
+// const path = require('path');
+
+// const inputFilePath = path.join(__dirname, 'exchange.json');
+// const outputFolderPath = path.join(__dirname, 'data-analysis');
+// const outputFilePath = path.join(outputFolderPath, 'categorizedExchange.json');
+
+// function categorizeByType(data) {
+//     const categorizedData = {};
+
+//     data.forEach((item) => {
+//         const { type } = item;
+
+//         if (!categorizedData[type]) {
+//             categorizedData[type] = [];
+//         }
+//         categorizedData[type].push(item);
+//     });
+
+//     return categorizedData;
+// }
+
+// function saveDataToFile(data, filePath) {
+//     if (!fs.existsSync(outputFolderPath)) {
+//         fs.mkdirSync(outputFolderPath, { recursive: true });
+//         console.log(`Created folder: ${outputFolderPath}`);
+//     }
+
+//     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+//     console.log(`Saved data to ${filePath}`);
+// }
+
+// try {
+//     const rawData = fs.readFileSync(inputFilePath, 'utf8');
+//     const parsedData = JSON.parse(rawData);
+
+//     console.log("Loaded exchange data:", parsedData);
+
+//     // Access the array inside hits.hits
+//     const financialData = parsedData.hits.hits;
+
+//     if (!Array.isArray(financialData)) {
+//         throw new Error("Expected an array in 'hits.hits'");
+//     }
+
+//     const categorizedData = categorizeByType(financialData);
+
+//     console.log("Categorized Data:", categorizedData);
+
+//     saveDataToFile(categorizedData, outputFilePath);
+// } catch (error) {
+//     console.error("Error processing data:", error.message);
+// }
 const fs = require('fs');
 const path = require('path');
 
-const inputFilePath = path.join(__dirname, 'exchange.json');
-const outputFolderPath = path.join(__dirname, 'data-analysis');
-const outputFilePath = path.join(outputFolderPath, 'categorizedExchange.json');
+// File paths
+const inputFilePathExchange = path.join(__dirname, 'backend/data/exchange.json');
+const inputFilePathMetadata = path.join(__dirname, 'backend/data/metadata.json');
+const inputFilePathCandle = path.join(__dirname, 'backend/data/candle.json');
+const outputFilePathExchange = path.join(__dirname, 'data-analysis/categorizedExchange.json');
+const outputFilePathMetadata = path.join(__dirname, 'data-analysis/categorizedMetadata.json');
+const outputFilePathCandle = path.join(__dirname, 'data-analysis/categorizedCandle.json');
 
-function categorizeByType(data) {
-    const categorizedData = {};
+// Function to categorize data by type
+const categorizeByType = (data) => {
+  const categorized = {};
 
-    data.forEach((item) => {
-        const { type } = item;
+  if (!data.hits || !data.hits.hits || data.hits.hits.length === 0) {
+    console.error('No valid data found in the file');
+    return {};
+  }
 
-        if (!categorizedData[type]) {
-            categorizedData[type] = [];
-        }
-        categorizedData[type].push(item);
-    });
-
-    return categorizedData;
-}
-
-function saveDataToFile(data, filePath) {
-    if (!fs.existsSync(outputFolderPath)) {
-        fs.mkdirSync(outputFolderPath, { recursive: true });
-        console.log(`Created folder: ${outputFolderPath}`);
+  data.hits.hits.forEach((item) => {
+    const type = item._source?.type || 'unknown'; // Check if "type" exists
+    console.log('Processing item:', item); // Log each item
+    console.log('Detected type:', type); // Log detected type
+    if (type) {
+      if (!categorized[type]) {
+        categorized[type] = [];
+      }
+     // categorized[type].push(item._source);
+      categorized[type].push(item._source || item);
     }
+  });
 
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    console.log(`Saved data to ${filePath}`);
-}
+  return categorized;
+};
 
-try {
+// Main logic
+const processFile = (inputFilePath, outputFilePath) => {
+  try {
+    // Read the input file
     const rawData = fs.readFileSync(inputFilePath, 'utf8');
-    const parsedData = JSON.parse(rawData);
+    const jsonData = JSON.parse(rawData);
 
-    console.log("Loaded exchange data:", parsedData);
+    console.log(`Loaded data from ${inputFilePath}:`, JSON.stringify(jsonData, null, 2)); // Debugging
 
-    // Access the array inside hits.hits
-    const financialData = parsedData.hits.hits;
+    // Categorize the data
+    const categorizedData = categorizeByType(jsonData);
 
-    if (!Array.isArray(financialData)) {
-        throw new Error("Expected an array in 'hits.hits'");
-    }
+    console.log('Categorized data:', JSON.stringify(categorizedData, null, 2)); // Debugging
 
-    const categorizedData = categorizeByType(financialData);
+    // Save the categorized data to a file
+    fs.writeFileSync(outputFilePath, JSON.stringify(categorizedData, null, 2));
+    console.log(`Categorized data saved to ${outputFilePath}`);
+  } catch (err) {
+    console.error('Error processing data:', err.message);
+  }
+};
 
-    console.log("Categorized Data:", categorizedData);
+// Process exchange.json
+processFile(inputFilePathExchange, outputFilePathExchange);
 
-    saveDataToFile(categorizedData, outputFilePath);
-} catch (error) {
-    console.error("Error processing data:", error.message);
-}
+// Process metadata.json
+processFile(inputFilePathMetadata, outputFilePathMetadata);
+
+// Process candle.json
+processFile(inputFilePathCandle, outputFilePathCandle);
+
+
 

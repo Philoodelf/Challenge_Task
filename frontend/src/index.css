@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #007bff;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+
+.minimiz-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 80px;
+  max-width: 240px;
+  white-space: nowrap;
+}
+
+.tablePopUp {
+  background-color: #0054ae !important;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+tr td {
+  background-color: #fff;
+}
+
+tr:hover td {
+  background-color: #f1f1f1;
+}

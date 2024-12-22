@@ -37,13 +37,5 @@ o	Mutual fund
 - User Friendly UI/UX
 
 
-## Screenshots
 
-![Data Table](https://drive.google.com/file/d/16QkFpd8QQqEvFjkc208nkUBhf6oZBoKf/view?usp=drive_link)
-
-![Full View Text](https://drive.google.com/file/d/1AFqGWbABU1FcfHYJDQS_rrmKYoj1uhQY/view?usp=drive_link)
-
-![pagination](https://drive.google.com/file/d/13-Ez_DIwMPQnTQgHNRt7qqlnvjoYzVNT/view?usp=drive_link)
-
-![Welcome Screen](https://drive.google.com/file/d/1FpIMMAlwEEjOhvfD-6Ye0K79N0vTEn3F/view?usp=drive_link)
 

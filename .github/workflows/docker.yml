@@ -49,5 +49,3 @@ jobs:
     - name: Push Docker Frontend image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/react-frontend:latest
 
-    - name: Build and push Docker images
-      run: docker-compose up --build

@@ -14,7 +14,7 @@ app.use(cors({
 
 // Serve categorizedExchange.json
 app.get('/api/exchange', (req, res) => {
-    const filePath = path.join(__dirname, '../data-analysis/categorizedExchange.json');
+    const filePath = path.join(__dirname, './data-analysis/categorizedExchange.json');
     res.sendFile(filePath, (err) => {
         if (err) {
             console.error('Error serving exchange file:', err);
@@ -25,7 +25,7 @@ app.get('/api/exchange', (req, res) => {
 
 // Serve categorizedMetadata.json
 app.get('/api/metadata', (req, res) => {
-    const filePath = path.join(__dirname, '../data-analysis/categorizedMetadata.json');
+    const filePath = path.join(__dirname, './data-analysis/categorizedMetadata.json');
     res.sendFile(filePath, (err) => {
         if (err) {
             console.error('Error serving metadata file:', err);
@@ -36,7 +36,7 @@ app.get('/api/metadata', (req, res) => {
 
 // Serve categorizedCandle.json
 app.get('/api/candle', (req, res) => {
-    const filePath = path.join(__dirname, '../data-analysis/categorizedCandle.json');
+    const filePath = path.join(__dirname, './data-analysis/categorizedCandle.json');
     res.sendFile(filePath, (err) => {
         if (err) {
             console.error('Error serving candle file:', err);

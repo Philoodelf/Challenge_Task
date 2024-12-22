@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchData } from "../api";
 
+
 const CategorizedData = ({ endpoint }) => {
   const [data, setData] = useState([]); // All fetched data
   const [error, setError] = useState(null);
